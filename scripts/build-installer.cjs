@@ -1,5 +1,5 @@
 const { spawnSync } = require('node:child_process');
-const { mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, unlinkSync, writeFileSync } = require('node:fs');
+const { existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, unlinkSync, writeFileSync } = require('node:fs');
 const { tmpdir } = require('node:os');
 const path = require('node:path');
 const { build, Platform, Arch } = require('electron-builder');
@@ -23,7 +23,8 @@ async function buildInstaller() {
   const payload = path.join(release, `XJ-Agent-Payload-${version}-x64.exe`);
   const installer = path.join(release, releaseFilename(version));
   // Reuse the Electron already in node_modules so packaging works without downloading it again.
-  const electronDist = process.env.JINKRA_ELECTRON_DIST || path.join(root, 'node_modules', 'electron', 'dist');
+  const localElectron = path.join(root, 'node_modules', 'electron', 'dist');
+  const electronDist = process.env.JINKRA_ELECTRON_DIST || (existsSync(path.join(localElectron, 'electron.exe')) ? localElectron : undefined);
   const compiler = path.join(process.env.SystemRoot || 'C:\\Windows', 'Microsoft.NET', 'Framework64', 'v4.0.30319', 'csc.exe');
   const staging = mkdtempSync(path.join(tmpdir(), 'xj-agent-setup-build-'));
   const metadata = path.join(staging, 'SetupVersion.cs');
@@ -57,7 +58,8 @@ async function buildInstaller() {
     // Keep the silent uninstaller intact for in-place upgrades.
     writeFileSync(uninstScript, original.replace(beforeConfirm, () => '  !insertmacro jinkraUninstallWizard\n' + beforeConfirm));
     nsis.nsisTemplatesDir = templates;
-    await build({ targets: Platform.WINDOWS.createTarget('nsis', Arch.x64), publish: 'never', config: { electronDist } });
+    await build({ targets: Platform.WINDOWS.createTarget('nsis', Arch.x64), publish: 'never',
+      ...(electronDist && { config: { electronDist } }) });
     compile(installer, ['/resource:' + payload + ',package.exe']);
     unlinkSync(payload);
   } finally {

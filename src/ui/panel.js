@@ -99,7 +99,7 @@ function chatMessages() {
 }
 function renderEmpty(container) {
   const empty = el('div', 'empty-chat');
-  const hero = el('div', 'hero'); const img = el('img'); img.src = '../../小金同学-初版立绘.png'; img.alt = ''; hero.append(img);
+  const hero = el('div', 'hero'); const img = el('img'); img.src = 'brand/hero.png'; img.alt = ''; hero.append(img);
   const who = mode() === 'claude' ? 'Claude' : 'Codex';
   empty.append(hero, el('div', 'greeting', '嗨，我是小金，把今天的想法交给我吧。'),
     el('p', '', `选好工作目录，告诉我任务。我会交给 ${who} 执行，需要你决定的事情会在桌面上提醒你。`));
