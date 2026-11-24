@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'">
+<title>小金同学</title>
+<link rel="stylesheet" href="activation.css">
+</head>
+<body>
+<main class="gateway">
+  <section class="gateway-card">
+    <div class="gateway-brand">
+      <img class="logo" src="brand/logo.png" alt="">
+      <strong>小金同学</strong>
+      <p id="version">版本号：</p>
+    </div>
+    <div class="gateway-content">
+      <h1>激活小金同学</h1>
+      <p>输入激活码后即可使用当前版本。</p>
+      <form id="form">
+        <input id="code" type="password" maxlength="128" required placeholder="输入激活码" aria-label="激活码" autocomplete="off">
+        <button id="submit" type="submit">激活并进入<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <p id="status" role="status" hidden></p>
+      </form>
+      <div class="guide">
+        <p>微信搜索<strong>「都拓文化」</strong>或扫描二维码关注公众号，获取激活码。</p>
+        <img src="brand/wechat-promotion.png" alt="都拓文化微信公众号二维码" width="1710" height="624">
+      </div>
+    </div>
+  </section>
+  <footer>© 2026 Jinkra . All Rights Reserved. | Made by Jinkra</footer>
+</main>
+<script src="activation.js"></script>
+</body>
+</html>

@@ -9,6 +9,8 @@ const { createPetMotion } = require('./pet-motion.cjs');
 const { installHooks } = require('./hooks.cjs');
 const { listenForApprovals } = require('./pet-approvals.cjs');
 const { ClaudeAgent, listSessions, MODELS, PERMISSION_MODES } = require('./claude.cjs');
+const { activate, activationState, loadActivation } = require('./release/activation.cjs');
+const { checkUpdate, getReleaseNotes, getUpdateError, installUpdate, cleanCompletedUpdate } = require('./release/updater.cjs');
 
 const ROOT = path.join(__dirname, '..');
 const CODEX_HOME = process.env.CODEX_HOME || path.join(os.homedir(), '.codex');
@@ -99,7 +101,7 @@ function createPet() {
   const bounds = clampBounds({ ...size, x: store.data.petX ?? area.x + area.width - size.width - 30, y: store.data.petY ?? area.y + area.height - size.height - 15 });
   pet = new BrowserWindow({ ...bounds, frame: false, transparent: true, resizable: false, skipTaskbar: true, alwaysOnTop: store.data.alwaysOnTop !== false,
     hasShadow: false, show: false, backgroundColor: '#00000000', title: '小金同学', icon: APP_ICON,
-    webPreferences: { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, nodeIntegration: false, sandbox: true, backgroundThrottling: false } });
+    webPreferences: { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, nodeIntegration: false, sandbox: true, backgroundThrottling: false, devTools: !app.isPackaged } });
   petMotion = createPetMotion(pet, screen, patch => store.save(patch),
     () => testCursor || screen.getCursorScreenPoint());
   petMotion.restore(store.data.petEdge || 'free');
@@ -115,12 +117,36 @@ function showPanel(threadId) {
   if (!panel || panel.isDestroyed()) {
     panel = new BrowserWindow({ width: 1020, height: 760, minWidth: 760, minHeight: 600, show: false, title: '小金同学 · 工作台', backgroundColor: '#edf5f9', autoHideMenuBar: true, icon: APP_ICON,
       titleBarStyle: 'hidden', titleBarOverlay: { color: '#edf5f9', symbolColor: '#395c72', height: 38 },
-      webPreferences: { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, nodeIntegration: false, sandbox: true } });
+      webPreferences: { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, nodeIntegration: false, sandbox: true, devTools: !app.isPackaged } });
     secureWindow(panel); panel.loadFile(path.join(__dirname, 'ui', 'panel.html'));
     panel.once('ready-to-show', () => { panel.show(); panel.focus(); });
     panel.on('closed', () => { panel = null; });
   } else { panel.show(); panel.focus(); }
   publish();
+}
+// Every version needs its activation code before the pet or workbench starts.
+function requireActivation() {
+  return new Promise((resolve) => {
+    const win = new BrowserWindow({ width: 1000, height: 700, minWidth: 560, minHeight: 560, title: '小金同学', icon: APP_ICON,
+      backgroundColor: '#f0f5fc', autoHideMenuBar: true, show: false,
+      webPreferences: { preload: path.join(__dirname, 'activation-preload.cjs'), contextIsolation: true, nodeIntegration: false, sandbox: true, devTools: !app.isPackaged } });
+    win.removeMenu();
+    secureWindow(win);
+    const owns = event => event.sender === win.webContents;
+    ipcMain.handle('activation:state', event => { if (!owns(event)) throw new Error('请求来源无效。'); return activationState(); });
+    ipcMain.handle('activation:submit', async (event, code) => {
+      if (!owns(event)) throw new Error('请求来源无效。');
+      const result = await activate(code);
+      setTimeout(() => { if (!win.isDestroyed()) win.destroy(); }, 500);
+      return result;
+    });
+    win.on('closed', () => {
+      ipcMain.removeHandler('activation:state'); ipcMain.removeHandler('activation:submit');
+      if (activationState().active) resolve(); else { quitting = true; app.quit(); }
+    });
+    win.loadFile(path.join(__dirname, 'ui', 'activation.html'));
+    win.once('ready-to-show', () => { win.show(); win.focus(); });
+  });
 }
 function openCodex(id) {
   if (id && !/^[a-f\d-]{36}$/i.test(id)) throw new Error('任务 ID 无效。');
@@ -415,6 +441,10 @@ function installIpc() {
     'billing:open': () => shell.openExternal('https://platform.openai.com/settings/organization/billing/overview'),
     'hooks:folder': () => shell.openPath(CODEX_HOME),
     'app:quit': () => { quitting = true; app.quit(); },
+    'update:check': () => checkUpdate(),
+    'update:notes': (_, version) => getReleaseNotes(version),
+    'update:error': () => getUpdateError(),
+    'update:install': event => installUpdate(progress => { if (!event.sender.isDestroyed()) event.sender.send('update-progress', progress); }),
   };
   if (TEST) {
     handlers['test:alert'] = (_, event) => addAlert({ id: `test-${Date.now()}`, title: '界面测试任务', threadId: '00000000-0000-0000-0000-000000000000', at: Date.now(), ...event });
@@ -429,7 +459,7 @@ function installIpc() {
 
 if (!app.requestSingleInstanceLock()) app.quit();
 else {
-  app.on('second-instance', () => { pet?.showInactive(); showPanel(); });
+  app.on('second-instance', () => { if (!store) return; pet?.showInactive(); showPanel(); });
   app.whenReady().then(async () => {
     app.setAppUserModelId('com.jinkra.companion');
     // Windows takes the taskbar icon from the Start Menu shortcut that carries this app id. Keep the
@@ -446,6 +476,9 @@ else {
         } catch { /* shortcut unreadable; leave it */ }
       }
     }
+    await loadActivation();
+    if (!TEST && !activationState().active) await requireActivation();
+    void cleanCompletedUpdate().catch(() => {});
     store = new Store(app.getPath('userData'), safeStorage);
     if (store.data.startupMode === 'codex' || store.data.startupMode === 'claude') store.save({ agentMode: store.data.startupMode });
     monitor = new TaskMonitor(TEST ? path.join(ROOT, 'test-results', 'codex-home') : CODEX_HOME);

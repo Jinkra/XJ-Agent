@@ -474,3 +474,33 @@ $('pet-swing').onchange = () => call('settings:save', { petSwing: Number($('pet-
 $('task-search').oninput = renderTasks; $('task-filter').onchange = renderTasks; $('session-search').oninput = renderSessions;
 window.lucide?.createIcons();
 api.subscribe(render); api.call('state').then(render);
+
+// ------------------------------------------------------------------ updates
+(() => {
+  let available = null;
+  const setStatus = (text, warning = false) => { $('update-status').textContent = text; $('update-status').classList.toggle('warning', warning); };
+  const mb = bytes => (bytes / 1048576).toFixed(1) + ' MB';
+  async function check(quiet) {
+    $('check-update').disabled = true; if (!quiet) setStatus('正在检查更新…');
+    try {
+      available = await api.call('update:check');
+      $('install-update').hidden = !available?.canInstall;
+      if (!available) setStatus('已是最新版本。');
+      else setStatus(available.canInstall ? `发现新版本 ${available.version}，可以下载并更新。` : `发现新版本 ${available.version}。请用 Windows 安装包安装小金同学后再更新。`, true);
+    } catch (err) { if (!quiet) setStatus(err.message.replace(/^Error invoking remote method '[^']+': (Error: )?/, ''), true); }
+    finally { $('check-update').disabled = false; }
+  }
+  const stages = { probe: '正在测试更新线路…', verify: '正在校验 SHA-256…', restart: '更新已就绪，正在重启小金同学…' };
+  api.updateProgress?.(p => {
+    $('update-progress').hidden = false;
+    $('update-progress').value = p.total ? Math.round(p.received * 100 / p.total) : 0;
+    setStatus(stages[p.stage] || `${p.stage === 'switch' ? '切换到' : '通过'} ${p.line} 下载 · ${mb(p.received)} / ${mb(p.total)}${p.speed ? ` · ${mb(p.speed)}/s` : ''}`);
+  });
+  $('check-update').onclick = () => check(false);
+  $('install-update').onclick = async () => {
+    $('install-update').disabled = $('check-update').disabled = true;
+    try { await call('update:install'); }
+    catch (err) { setStatus('更新失败：' + err.message.replace(/^Error invoking remote method '[^']+': (Error: )?/, ''), true); $('update-progress').hidden = true; $('install-update').disabled = $('check-update').disabled = false; }
+  };
+  api.call('update:error').then(error => { if (error) setStatus(error, true); else check(true); }).catch(() => {});
+})();

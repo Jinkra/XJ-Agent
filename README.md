@@ -1,15 +1,25 @@
-<p align="center"><img src="src/ui/brand/logo.png" width="112" alt="小金同学"></p>
+<div align="center">
 
-<h1 align="center">小金同学</h1>
+<img src="src/ui/brand/logo.png" width="128" height="128" alt="小金同学">
 
-<p align="center">住在 Windows 桌面上的 AI 编程伙伴 · Live2D 桌宠 · Codex / Claude 双模式</p>
+# 小金同学
+
+住在 Windows 桌面上的 AI 编程伙伴 · Live2D 桌宠 · Codex / Claude 双模式
+
+[![下载最新版](https://img.shields.io/github/v/release/Jinkra/XJ-Agent?label=%E4%B8%8B%E8%BD%BD&color=1f6feb)](https://github.com/Jinkra/XJ-Agent/releases/latest)
+![平台](https://img.shields.io/badge/Windows-10%20%2F%2011%20x64-0078d4)
+
+</div>
 
 小金同学是一只透明悬浮的 Live2D 桌宠，同时也是你的编程助手工作台：把任务交给小金，它会通过本机的 **Codex** 或 **Claude Code** 在指定目录里执行，进展、完成和需要你批准的操作都会用头顶气泡告诉你。
 
-## 下载
+## 下载与激活
 
-到 [Releases](../../releases) 下载 `XiaoJin-win32-x64.zip`，解压后运行 `Jinkra.exe`。
-便携程序需要保留整个文件夹，不能单独移动 EXE。使用前请先在本机安装并登录 Codex 或 Claude Code（至少一个）。
+到 [Releases](https://github.com/Jinkra/XJ-Agent/releases/latest) 下载 `XJ-Agent-Setup-版本号-x64.exe`，运行安装向导即可。向导可选择安装目录，并可创建桌面、开始菜单和快速启动快捷方式；卸载向导可选择是否保留用户数据。
+
+每个版本首次打开时需要输入激活码。微信搜索公众号「都拓文化」获取激活码，激活记录加密保存在本机。
+
+在工作台「偏好设置 → 软件更新」中可检查 GitHub 新版：多线路测速下载，校验签名清单与 SHA-256 后原地更新并重启，原有快捷方式会保留。使用前请先在本机安装并登录 Codex 或 Claude Code（至少一个）。
 
 ## 功能
 
@@ -43,7 +53,7 @@ npm start
 ```bash
 npm test          # 单元测试
 npm run test:ui   # Electron 界面冒烟测试（会弹出窗口）
-npm run pack      # 打包到 dist/小金同学-win32-x64
+npm run dist      # 构建 Windows 安装包到 release/XJ-Agent-Setup-版本号-x64.exe
 ```
 
 打包直接使用 `node_modules` 中已安装的 Electron，不需要再联网下载。

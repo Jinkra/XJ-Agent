@@ -73,6 +73,8 @@ class ClaudeAgent extends EventEmitter {
       cwd, permissionMode, includePartialMessages: true,
       canUseTool: (toolName, toolInput, context) => this.askPermission(toolName, toolInput, context),
     };
+    // Packaged builds keep the SDK's native CLI outside app.asar so Windows can execute it.
+    if (__dirname.includes('app.asar')) options.pathToClaudeCodeExecutable = path.join(process.resourcesPath, 'app.asar.unpacked', 'node_modules', '@anthropic-ai', 'claude-agent-sdk-win32-x64', 'claude.exe');
     if (model) options.model = model;
     if (resume) options.resume = resume;
     this.query = query({ prompt: input(), options });

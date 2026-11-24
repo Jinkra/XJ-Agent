@@ -26,6 +26,7 @@
     <div class="status-line" id="status-claude"><i></i><span>Claude</span><em id="claude-status">待命</em></div>
     <button id="reconnect" class="ghost small"><i data-lucide="refresh-cw" aria-hidden="true"></i><span id="reconnect-label">重新连接 Codex</span></button>
   </div>
+  <p class="app-copyright">© 2026 Jinkra . All Rights Reserved. | Made by Jinkra</p>
 </aside>
 
 <main>
@@ -184,6 +185,16 @@
           <label class="field">订阅金额与币种<input id="subscription" placeholder="例如 USD 20 / 月"></label>
         </div>
         <div class="button-row save-row"><button id="save-settings" class="primary">保存费用与订阅</button></div>
+      </div>
+    </div>
+    <div class="settings-section">
+      <h3 class="section-title"><i data-lucide="cloud-download" aria-hidden="true"></i>软件更新</h3>
+      <div class="settings-block">
+        <h2>从 GitHub 获取新版</h2>
+        <p>检查 Jinkra/XJ-Agent 的最新发行版，多线路测速下载，校验签名清单与 SHA-256 后原地更新并重启。首次使用新版本需要重新激活。</p>
+        <div id="update-status" class="notice">尚未检查更新。</div>
+        <progress id="update-progress" max="100" value="0" hidden></progress>
+        <div class="button-row"><button id="check-update" class="ghost">检查更新</button><button id="install-update" class="primary" hidden>下载并更新</button></div>
       </div>
     </div>
     <div class="about"><span id="version">小金同学 v0.1.0</span><button id="quit" class="ghost danger">退出桌宠</button></div>
