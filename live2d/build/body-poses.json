@@ -1,0 +1,6 @@
+{"rest": {}, "wave_a": {"ParamArmLRaise": 1, "ParamArmRRaise": 1, "ParamArmLWave": 1, "ParamArmRWave": -1, "ParamEyeLOpen": 0, "ParamEyeROpen": 0, "ParamEyeLSmile": 1, "ParamEyeRSmile": 1},
+ "wave_b": {"ParamArmLRaise": 1, "ParamArmRRaise": 1, "ParamArmLWave": -1, "ParamArmRWave": 1},
+ "raise_half": {"ParamArmLRaise": 0.5, "ParamArmRRaise": 0.5},
+ "legs": {"ParamLegL": 1, "ParamLegR": -1, "ParamClothSway": 1},
+ "legs2": {"ParamLegL": -1, "ParamLegR": 1, "ParamClothSway": -1, "ParamHairFront": 1, "ParamBodyAngleZ": 8},
+ "turn": {"ParamAngleX": 25, "ParamAngleY": 10, "ParamBodyAngleX": 8}}

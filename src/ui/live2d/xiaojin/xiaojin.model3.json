@@ -1,0 +1,50 @@
+{
+ "Version": 3,
+ "FileReferences": {
+  "Moc": "xiaojin.moc3",
+  "Textures": [
+   "textures/texture_00.png"
+  ],
+  "Physics": "xiaojin.physics3.json",
+  "DisplayInfo": "xiaojin.cdi3.json",
+  "Motions": {
+   "Idle": [
+    {
+     "File": "motions/idle.motion3.json"
+    }
+   ],
+   "Tap": [
+    {
+     "File": "motions/tap.motion3.json"
+    }
+   ]
+  }
+ },
+ "Groups": [
+  {
+   "Target": "Parameter",
+   "Name": "EyeBlink",
+   "Ids": [
+    "ParamEyeLOpen",
+    "ParamEyeROpen"
+   ]
+  },
+  {
+   "Target": "Parameter",
+   "Name": "LipSync",
+   "Ids": [
+    "ParamMouthOpenY"
+   ]
+  }
+ ],
+ "HitAreas": [
+  {
+   "Id": "D_FACE",
+   "Name": "Head"
+  },
+  {
+   "Id": "D_TORSO",
+   "Name": "Body"
+  }
+ ]
+}

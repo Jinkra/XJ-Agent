@@ -1,0 +1,3 @@
+{"rest": {}, "angleY+30": {"ParamAngleY": 30}, "angleX-30": {"ParamAngleX": -30}, "angleZ+30": {"ParamAngleZ": 30},
+ "blink": {"ParamEyeLOpen": 0, "ParamEyeROpen": 0}, "smile_eyes": {"ParamEyeLOpen": 0, "ParamEyeROpen": 0, "ParamEyeLSmile": 1, "ParamEyeRSmile": 1},
+ "mouth_closed": {"ParamMouthOpenY": 0}, "arms_out": {"ParamArmLA": 10, "ParamArmRA": 10}}

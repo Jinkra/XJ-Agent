@@ -1,0 +1,18 @@
+{
+ "rest": {},
+ "angleX+30": {"ParamAngleX": 30}, "angleX-30": {"ParamAngleX": -30},
+ "angleY+30": {"ParamAngleY": 30}, "angleY-30": {"ParamAngleY": -30},
+ "angleZ+30": {"ParamAngleZ": 30}, "angleZ-30": {"ParamAngleZ": -30},
+ "turn_corner": {"ParamAngleX": 30, "ParamAngleY": 30, "ParamAngleZ": -15},
+ "blink": {"ParamEyeLOpen": 0, "ParamEyeROpen": 0},
+ "smile_eyes": {"ParamEyeLOpen": 0, "ParamEyeROpen": 0, "ParamEyeLSmile": 1, "ParamEyeRSmile": 1, "ParamMouthForm": 1},
+ "half_blink": {"ParamEyeLOpen": 0.5, "ParamEyeROpen": 0.5},
+ "mouth_closed": {"ParamMouthOpenY": 0}, "mouth_frown": {"ParamMouthOpenY": 0.3, "ParamMouthForm": -1},
+ "look_right_up": {"ParamEyeBallX": 1, "ParamEyeBallY": 1}, "look_left_down": {"ParamEyeBallX": -1, "ParamEyeBallY": -1},
+ "brows_up": {"ParamBrowLY": 1, "ParamBrowRY": 1},
+ "bodyX+10": {"ParamBodyAngleX": 10}, "bodyZ+10": {"ParamBodyAngleZ": 10}, "bodyY-10": {"ParamBodyAngleY": -10},
+ "breath": {"ParamBreath": 1},
+ "arms_out": {"ParamArmLA": 10, "ParamArmRA": 10}, "arms_in_bent": {"ParamArmLA": -10, "ParamArmRA": -10, "ParamArmLB": 10, "ParamArmRB": 10},
+ "hair_sway": {"ParamHairFront": 1, "ParamHairBack": -1, "ParamHairAhoge": 1, "ParamEarPandaL": 1, "ParamEarPandaR": -1},
+ "hair_sway2": {"ParamHairFront": -1, "ParamHairBack": 1, "ParamHairAhoge": -1, "ParamEarPandaL": -1, "ParamEarPandaR": 1}
+}

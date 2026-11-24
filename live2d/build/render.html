@@ -1,0 +1,27 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>render</title>
+<style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:transparent}canvas{display:block}</style></head>
+<body><canvas id="c"></canvas>
+<script src="../../src/ui/vendor/pixi.min.js"></script>
+<script src="../../src/ui/vendor/live2dcubismcore.min.js"></script>
+<script src="../../src/ui/vendor/pixi-live2d-display.min.js"></script>
+<script>
+const q = new URLSearchParams(location.search);
+const app = new PIXI.Application({ view: document.getElementById('c'), width: innerWidth, height: innerHeight,
+  backgroundAlpha: 0, antialias: true, resolution: 1, preserveDrawingBuffer: true });
+const pose = new Map();
+window.setPose = values => { pose.clear(); for (const [id, value] of Object.entries(values || {})) pose.set(id, value); };
+PIXI.live2d.Live2DModel.from(q.get('model'), { autoInteract: false }).then(model => {
+  const im = model.internalModel;
+  im.eyeBlink = undefined;
+  im.updateNaturalMovements = () => {};
+  if (q.get('physics') !== '1') im.physics = undefined;
+  const scale = Math.min(innerWidth / im.originalWidth, innerHeight / im.originalHeight);
+  model.scale.set(scale);
+  model.position.set((innerWidth - im.originalWidth * scale) / 2, (innerHeight - im.originalHeight * scale) / 2);
+  im.on('beforeModelUpdate', () => { for (const [id, value] of pose) im.coreModel.setParameterValueById(id, value); });
+  app.stage.addChild(model);
+  window.__model = model;
+  window.__ready = true;
+}).catch(error => { window.__error = String(error && error.stack || error); });
+</script></body></html>
