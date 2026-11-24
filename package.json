@@ -1,6 +1,6 @@
 {
   "name": "jinkra-companion",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "小金同学 · AI 编程桌面伙伴",
   "main": "src/main.cjs",
   "author": "Jinkra",
