@@ -5,7 +5,7 @@ const { mkdir, readFile, rename, rm, writeFile } = require('node:fs/promises');
 const path = require('node:path');
 
 const { version } = require('../../package.json');
-const keyDigest = Buffer.from('03eff1d8b2ed11ce79a501d89f80f38d0ced70786a9cb986972230451ca0f13b', 'hex');
+const keyDigest = Buffer.from('21f231b1304046d3964bf887b3c4e2a37635142f67b151224620c6dc7cb57403', 'hex');
 const derive = promisify(scrypt);
 const receipt = 'Jinkra/activation/' + version;
 let active = false;
