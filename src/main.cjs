@@ -92,7 +92,11 @@ function clampBounds(bounds) {
 }
 function petSize() { const s = store.data.petScale || 1; return { width: Math.round(300 * s), height: Math.round(450 * s) }; }
 function secureWindow(win) {
-  win.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
+  // The only outbound link is the author's site; open it in the default browser.
+  win.webContents.setWindowOpenHandler(({ url }) => {
+    if (url === 'https://jinkra.slatt.cn/') void shell.openExternal(url);
+    return { action: 'deny' };
+  });
   win.webContents.on('will-navigate', e => e.preventDefault());
   win.webContents.session.setPermissionRequestHandler((_, __, callback) => callback(false));
 }
