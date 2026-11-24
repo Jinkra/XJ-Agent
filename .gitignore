@@ -1,0 +1,10 @@
+node_modules/
+dist/
+test-results/
+*.log
+__pycache__/
+*.pyc
+*.lnk
+*.bak
+.DS_Store
+Thumbs.db

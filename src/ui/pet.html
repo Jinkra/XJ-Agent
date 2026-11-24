@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' 'wasm-unsafe-eval'"><title>小金同学</title><link rel="stylesheet" href="pet.css"></head>
+<body><div id="companion">
+  <section id="bubble" class="bubble" hidden aria-live="polite"><button id="dismiss" title="收起提醒" aria-label="收起提醒">×</button><button id="bubble-open"><span id="bubble-label">小金有话说</span><strong id="bubble-text"></strong><span id="bubble-task"></span></button><div id="bubble-footer"><span id="queue-count"></span><span>点击查看 ↗</span></div></section>
+  <canvas id="rig" aria-hidden="true"></canvas><canvas id="rig-overlay" aria-hidden="true"></canvas>
+  <img id="character" src="../../小金同学-初版立绘.png" draggable="false" alt="小金同学，单击互动，悬停显示操作，拖动移动位置" tabindex="0" role="button">
+  <nav id="pet-actions" aria-label="小金快捷菜单" hidden>
+    <button id="pet-workbench" aria-label="打开工作台" data-tip="工作台"><i data-lucide="layout-dashboard" aria-hidden="true"></i></button>
+    <button id="pet-send" aria-label="给 Codex 发任务" data-tip="发任务"><i data-lucide="send" aria-hidden="true"></i></button>
+    <button id="pet-pin" aria-label="关闭置顶" data-tip="关闭置顶" aria-pressed="true"><i data-lucide="pin" aria-hidden="true"></i><span class="pin-status" aria-hidden="true"></span></button>
+  </nav>
+  <section id="pet-card" class="pet-card" hidden aria-label="小金弹窗">
+    <div class="pet-card-head"><strong id="pet-card-title"></strong><button id="pet-card-close" aria-label="关闭弹窗">×</button></div>
+    <div id="pet-card-content"></div><p id="pet-error" role="status" hidden></p>
+  </section>
+  <button id="nameplate" title="显示小金快捷菜单"><i></i> 小金同学 <span id="unread"></span></button>
+</div><script src="../../node_modules/lucide/dist/umd/lucide.min.js"></script><script src="vendor/live2dcubismcore.min.js"></script><script src="live2d-lite.js"></script><script src="pet-rig.js"></script><script src="pet.js"></script></body></html>

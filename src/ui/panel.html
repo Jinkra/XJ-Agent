@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'">
+<title>小金同学 · 工作台</title>
+<link rel="stylesheet" href="panel.css">
+</head>
+<body data-mode="codex">
+<div class="window-drag"><img class="title-logo" src="brand/logo.png" alt=""><span class="window-title">小金同学工作台</span></div>
+
+<aside class="sidebar">
+  <div class="identity">
+    <div class="avatar"><img src="brand/logo.png" alt=""></div>
+    <div><strong>小金同学</strong><span id="identity-mode">Codex 伙伴</span></div>
+  </div>
+  <nav aria-label="工作台导航">
+    <button class="active" data-page="chat"><i data-lucide="messages-square" aria-hidden="true"></i><span>跟小金说</span></button>
+    <button data-page="tasks"><i data-lucide="list-checks" aria-hidden="true"></i><span>所有任务</span><b id="active-count"></b></button>
+    <button data-page="usage"><i data-lucide="gauge" aria-hidden="true"></i><span>额度与费用</span></button>
+    <button data-page="settings"><i data-lucide="settings-2" aria-hidden="true"></i><span>偏好设置</span></button>
+  </nav>
+  <div class="status-stack">
+    <div class="status-line" id="status-codex"><i></i><span>Codex</span><em id="connection">正在连接…</em></div>
+    <div class="status-line" id="status-claude"><i></i><span>Claude</span><em id="claude-status">待命</em></div>
+    <button id="reconnect" class="ghost small"><i data-lucide="refresh-cw" aria-hidden="true"></i><span id="reconnect-label">重新连接 Codex</span></button>
+  </div>
+</aside>
+
+<main>
+  <header class="topbar">
+    <div class="heading">
+      <div class="eyebrow" id="page-caption">交代想法，接下来交给 Codex</div>
+      <h1 id="page-title">今天一起做点什么？</h1>
+    </div>
+    <div class="mode-switch" role="radiogroup" aria-label="智能体模式">
+      <button role="radio" data-mode="codex" aria-checked="true"><i data-lucide="code-xml" aria-hidden="true"></i>Codex</button>
+      <button role="radio" data-mode="claude" aria-checked="false"><i data-lucide="sparkles" aria-hidden="true"></i>Claude</button>
+      <span class="mode-thumb" aria-hidden="true"></span>
+    </div>
+  </header>
+  <div id="toast" role="status" hidden></div>
+
+  <!-- ============================== Chat ============================== -->
+  <section id="page-chat" class="page active">
+    <div class="toolbar">
+      <button class="chip workspace" id="choose-folder" title="选择工作目录"><i data-lucide="folder-open" aria-hidden="true"></i><span><small>工作目录</small><b id="cwd">先选择一个项目文件夹</b></span></button>
+      <button class="chip icon-only" id="open-folder" title="在资源管理器中打开" aria-label="在资源管理器中打开工作目录"><i data-lucide="external-link" aria-hidden="true"></i></button>
+      <div class="claude-only toolbar-group">
+        <label class="select-chip"><i data-lucide="cpu" aria-hidden="true"></i><select id="claude-model" aria-label="Claude 模型"></select></label>
+        <label class="select-chip"><i data-lucide="shield-check" aria-hidden="true"></i><select id="claude-permission" aria-label="Claude 权限模式"></select></label>
+      </div>
+      <div class="codex-only toolbar-group">
+        <label class="select-chip"><i data-lucide="cpu" aria-hidden="true"></i><select id="codex-model" aria-label="Codex 模型"></select></label>
+        <label class="select-chip"><i data-lucide="brain" aria-hidden="true"></i><select id="codex-effort" aria-label="Codex 推理强度"></select></label>
+      </div>
+      <span class="spacer"></span>
+      <button class="chip" id="new-chat"><i data-lucide="square-pen" aria-hidden="true"></i>新对话</button>
+      <button class="chip codex-only icon-only" id="open-codex" title="打开 Codex" aria-label="打开 Codex"><i data-lucide="arrow-up-right" aria-hidden="true"></i></button>
+    </div>
+    <div id="session-bar" class="session-bar" hidden></div>
+    <div id="messages" class="messages" aria-live="polite"></div>
+    <div id="requests"></div>
+    <form id="chat-form" class="composer">
+      <div class="suggestions" id="suggestions"></div>
+      <textarea id="prompt" rows="3" placeholder="告诉小金，你想完成什么… （Ctrl + Enter 发送）" aria-label="给小金的任务"></textarea>
+      <div class="composer-footer">
+        <small id="chat-state">发送后，由 Codex 在所选目录执行</small>
+        <div>
+          <button type="button" id="interrupt" class="ghost danger" hidden><i data-lucide="square" aria-hidden="true"></i>中断任务</button>
+          <button type="submit" id="send" class="primary"><span id="send-label">交给小金</span><i data-lucide="send-horizontal" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <!-- ============================== Tasks ============================== -->
+  <section id="page-tasks" class="page">
+    <div class="tabs" role="tablist">
+      <button role="tab" class="active" data-tab="codex">Codex 任务</button>
+      <button role="tab" data-tab="claude">Claude 会话</button>
+    </div>
+    <div class="tab-panel" data-panel="codex">
+      <div class="section-heading"><div><strong>本机 Codex 任务</strong><p id="coverage">正在读取会话事件…</p></div><button id="clear-alerts" class="ghost">清空提醒</button></div>
+      <div id="hook-banner" class="notice"></div>
+      <div class="filter-bar"><div class="search"><i data-lucide="search" aria-hidden="true"></i><input id="task-search" type="search" placeholder="搜索任务或工作目录" aria-label="搜索任务"></div><select id="task-filter" aria-label="筛选状态"><option value="all">全部状态</option><option value="active">执行中</option><option value="approval">需要批准</option><option value="completed">已完成</option><option value="failed">失败 / 中断</option></select></div>
+      <div id="tasks"></div>
+    </div>
+    <div class="tab-panel" data-panel="claude" hidden>
+      <div class="section-heading"><div><strong>本机 Claude Code 会话</strong><p>来自 ~/.claude 的最近会话，可以在小金里接着聊</p></div><button id="refresh-sessions" class="ghost"><i data-lucide="refresh-cw" aria-hidden="true"></i>刷新</button></div>
+      <div class="filter-bar"><div class="search"><i data-lucide="search" aria-hidden="true"></i><input id="session-search" type="search" placeholder="搜索会话或目录" aria-label="搜索 Claude 会话"></div></div>
+      <div id="sessions"></div>
+    </div>
+  </section>
+
+  <!-- ============================== Usage ============================== -->
+  <section id="page-usage" class="page">
+    <div class="stat-row" id="stat-row"></div>
+    <div class="card-block" id="block-codex">
+      <div class="section-heading"><div><strong>Codex 订阅额度</strong><p id="quota-source">等待账户数据</p></div><button id="refresh-quota" class="ghost"><i data-lucide="refresh-cw" aria-hidden="true"></i>刷新额度</button></div>
+      <div id="quota"></div>
+    </div>
+    <div class="card-block" id="block-claude">
+      <div class="section-heading"><div><strong>Claude 用量</strong><p>小金发起的 Claude 任务 · Claude Code 报告的费用</p></div></div>
+      <div id="claude-usage"></div>
+    </div>
+    <div class="card-block" id="block-api">
+      <div class="section-heading"><div><strong>OpenAI API 费用</strong><p>最近 30 天 · 官方组织费用数据</p></div><button id="refresh-costs" class="ghost"><i data-lucide="refresh-cw" aria-hidden="true"></i>刷新费用</button></div>
+      <div class="cost-card"><div><small>实际费用</small><strong id="cost-total">尚未连接</strong><span id="cost-updated">在设置中配置有费用读取权限的 Admin API key</span></div><button id="open-billing" class="ghost">官方账单 ↗</button></div>
+      <div class="subscription-note"><strong>ChatGPT 订阅记录</strong><p id="subscription-record">可在设置中手动记录续费日期与金额。</p><small>订阅记录由你填写；Codex 额度、Claude 用量与 API 费用分别来自各自的数据源。</small></div>
+    </div>
+  </section>
+
+  <!-- ============================== Settings ============================== -->
+  <section id="page-settings" class="page">
+    <div class="settings-section">
+      <h3 class="section-title"><i data-lucide="sliders-horizontal" aria-hidden="true"></i>通用</h3>
+      <div class="settings-block">
+        <div class="grid-2">
+          <label class="field">启动时进入<select id="startup-mode"><option value="codex">Codex 模式</option><option value="claude">Claude 模式</option><option value="last">上次使用的模式</option></select></label>
+          <label class="field">角色大小<input id="pet-scale" type="range" min="0.7" max="1.5" step="0.1" value="1"></label>
+          <label class="toggle-row"><span>勿扰模式<small>暂停气泡和系统提醒，任务继续记录</small></span><input id="muted" type="checkbox"></label>
+          <label class="toggle-row"><span>开机自启<small>登录 Windows 后自动在后台启动小金，不弹出工作台</small></span><input id="autostart" type="checkbox"></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-section" id="pet-behaviour">
+      <h3 class="section-title"><i data-lucide="hand-heart" aria-hidden="true"></i>小金的互动</h3>
+      <div class="settings-block">
+        <div class="grid-2">
+          <label class="toggle-row"><span>空闲时打瞌睡<small>没有任务、也没人理一段时间后睡着，碰一下就醒</small></span><input id="pet-sleep" type="checkbox"></label>
+          <label class="field inline-field">多久没动静后打瞌睡（分钟）<input id="pet-sleep-minutes" type="number" min="1" max="240" step="1" value="15"></label>
+          <label class="toggle-row"><span>目光跟随鼠标<small>鼠标经过时看向光标</small></span><input id="pet-follow" type="checkbox"></label>
+          <label class="toggle-row"><span>连点打招呼<small>快速点 3 下，小金挥手</small></span><input id="pet-wave" type="checkbox"></label>
+          <label class="toggle-row"><span>捏脸<small>按住脸颊拖动会被捏住</small></span><input id="pet-pinch" type="checkbox"></label>
+          <label class="toggle-row"><span>甩晕<small>拎着来回猛甩会变成蚊香眼</small></span><input id="pet-dizzy" type="checkbox"></label>
+          <label class="toggle-row"><span>生闷气<small>戳太多次或捏脸后鼓腮</small></span><input id="pet-sulky" type="checkbox"></label>
+          <label class="field inline-field">拖拽摆动幅度<input id="pet-swing" type="range" min="0.3" max="1.5" step="0.1" value="1"></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3 class="section-title"><i data-lucide="bot" aria-hidden="true"></i>AI 模式</h3>
+      <div class="grid-2 cards">
+        <div class="settings-block mode-card codex-card">
+          <h2><i data-lucide="code-xml" aria-hidden="true"></i>Codex 模式</h2>
+          <p>模型列表来自本机 Codex，切换后从下一轮对话开始生效。</p>
+          <label class="field">默认模型<select id="settings-codex-model"></select></label>
+          <label class="field">推理强度<select id="settings-codex-effort"></select></label>
+        </div>
+        <div class="settings-block mode-card claude-card">
+          <h2><i data-lucide="sparkles" aria-hidden="true"></i>Claude 模式</h2>
+          <p>通过本机已登录的 Claude Code 执行，需要权限的操作都在小金弹窗里由你批准。</p>
+          <label class="field">默认模型<select id="settings-claude-model"></select></label>
+          <label class="field">权限模式<select id="settings-claude-permission"></select></label>
+          <p class="footnote" id="permission-hint"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3 class="section-title"><i data-lucide="bell-ring" aria-hidden="true"></i>提醒与审批</h3>
+      <div class="settings-block">
+        <h2>所有任务的批准提醒</h2>
+        <p>全局钩子把 Codex 的审批交给小金弹窗，只有你点击批准或拒绝才会提交。Claude 模式的审批始终走小金弹窗，不需要安装钩子。</p>
+        <div id="hooks-status" class="notice"></div>
+        <div class="button-row"><button id="install-hooks" class="primary">安装或更新审批钩子</button><button id="check-hooks" class="ghost">检查连接与信任状态</button></div>
+        <p class="footnote">安装后，在 Codex 的“设置 → Hooks”或 CLI 的 /hooks 中审核信任小金的两项钩子。已在运行的会话可能需要重新加载钩子。</p>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3 class="section-title"><i data-lucide="wallet" aria-hidden="true"></i>费用与订阅</h3>
+      <div class="settings-block">
+        <div class="grid-2">
+          <label class="field">OpenAI 组织管理员密钥<input id="api-key" type="password" autocomplete="off" placeholder="Admin API key · 使用 Windows 加密保存"></label>
+          <label class="field">API 费用提醒阈值（USD，最近 30 天）<input id="budget" type="number" min="0" step="1" placeholder="例如 50"></label>
+          <div class="button-row key-row"><button id="save-key" class="ghost">保存密钥</button><button id="delete-key" class="ghost">移除密钥</button><small id="key-status"></small></div>
+          <span></span>
+          <label class="field">ChatGPT 下次续费日期<input id="renewal" type="date"></label>
+          <label class="field">订阅金额与币种<input id="subscription" placeholder="例如 USD 20 / 月"></label>
+        </div>
+        <div class="button-row save-row"><button id="save-settings" class="primary">保存费用与订阅</button></div>
+      </div>
+    </div>
+    <div class="about"><span id="version">小金同学 v0.1.0</span><button id="quit" class="ghost danger">退出桌宠</button></div>
+  </section>
+</main>
+<script src="../../node_modules/lucide/dist/umd/lucide.min.js"></script>
+<script src="panel.js"></script>
+</body>
+</html>

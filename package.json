@@ -1,0 +1,23 @@
+{
+  "name": "jinkra-companion",
+  "version": "0.1.0",
+  "description": "小金同学 · AI 编程桌面伙伴",
+  "main": "src/main.cjs",
+  "author": "Jinkra",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test tests/*.test.cjs",
+    "test:ui": "node tests/electron-smoke.cjs",
+    "pack": "node scripts/package.cjs"
+  },
+  "devDependencies": {
+    "@electron/packager": "20.3.0",
+    "electron": "45.4.1",
+    "playwright": "1.65.1"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.3.331",
+    "lucide": "^1.77.0"
+  }
+}

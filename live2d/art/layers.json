@@ -1,0 +1,296 @@
+{
+ "canvas": [
+  1024,
+  1536
+ ],
+ "panda_ears": {
+  "ear_panda_l": [
+   343.8,
+   179.3,
+   102.0
+  ],
+  "ear_panda_r": [
+   650.8,
+   133.7,
+   103.6
+  ]
+ },
+ "layers": [
+  {
+   "name": "ear_panda_l",
+   "order": 0,
+   "bbox": [
+    236,
+    56,
+    432,
+    269
+   ],
+   "visible_px": 14377,
+   "hidden_px": 7228
+  },
+  {
+   "name": "ear_panda_r",
+   "order": 1,
+   "bbox": [
+    553,
+    25,
+    758,
+    221
+   ],
+   "visible_px": 17186,
+   "hidden_px": 6877
+  },
+  {
+   "name": "hood",
+   "order": 2,
+   "bbox": [
+    216,
+    51,
+    814,
+    647
+   ],
+   "visible_px": 60036,
+   "hidden_px": 146879
+  },
+  {
+   "name": "hair_back",
+   "order": 3,
+   "bbox": [
+    216,
+    201,
+    773,
+    539
+   ],
+   "visible_px": 7176,
+   "hidden_px": 114391
+  },
+  {
+   "name": "pants",
+   "order": 4,
+   "bbox": [
+    283,
+    770,
+    731,
+    1369
+   ],
+   "visible_px": 164611,
+   "hidden_px": 44351
+  },
+  {
+   "name": "shoes",
+   "order": 5,
+   "bbox": [
+    308,
+    1305,
+    706,
+    1536
+   ],
+   "visible_px": 65515,
+   "hidden_px": 0
+  },
+  {
+   "name": "arm_l",
+   "order": 6,
+   "bbox": [
+    172,
+    529,
+    436,
+    957
+   ],
+   "visible_px": 48885,
+   "hidden_px": 9685
+  },
+  {
+   "name": "arm_r",
+   "order": 7,
+   "bbox": [
+    619,
+    515,
+    855,
+    957
+   ],
+   "visible_px": 47644,
+   "hidden_px": 10186
+  },
+  {
+   "name": "neck",
+   "order": 8,
+   "bbox": [
+    486,
+    421,
+    590,
+    537
+   ],
+   "visible_px": 915,
+   "hidden_px": 7834
+  },
+  {
+   "name": "torso",
+   "order": 9,
+   "bbox": [
+    320,
+    455,
+    706,
+    947
+   ],
+   "visible_px": 110739,
+   "hidden_px": 6
+  },
+  {
+   "name": "ear_r",
+   "order": 10,
+   "bbox": [
+    635,
+    355,
+    735,
+    449
+   ],
+   "visible_px": 1237,
+   "hidden_px": 3477
+  },
+  {
+   "name": "face",
+   "order": 11,
+   "bbox": [
+    367,
+    235,
+    657,
+    497
+   ],
+   "visible_px": 16411,
+   "hidden_px": 44911
+  },
+  {
+   "name": "mouth",
+   "order": 12,
+   "bbox": [
+    495,
+    420,
+    560,
+    478
+   ],
+   "visible_px": 2564,
+   "hidden_px": 0
+  },
+  {
+   "name": "eyewhite_l",
+   "order": 13,
+   "bbox": [
+    374,
+    357,
+    505,
+    452
+   ],
+   "visible_px": 862,
+   "hidden_px": 6095
+  },
+  {
+   "name": "eyewhite_r",
+   "order": 14,
+   "bbox": [
+    525,
+    313,
+    656,
+    407
+   ],
+   "visible_px": 832,
+   "hidden_px": 6326
+  },
+  {
+   "name": "iris_l",
+   "order": 15,
+   "bbox": [
+    417,
+    364,
+    479,
+    431
+   ],
+   "visible_px": 2643,
+   "hidden_px": 479
+  },
+  {
+   "name": "iris_r",
+   "order": 16,
+   "bbox": [
+    555,
+    327,
+    620,
+    398
+   ],
+   "visible_px": 3165,
+   "hidden_px": 436
+  },
+  {
+   "name": "lash_l",
+   "order": 17,
+   "bbox": [
+    376,
+    353,
+    473,
+    404
+   ],
+   "visible_px": 1195,
+   "hidden_px": 259
+  },
+  {
+   "name": "lash_r",
+   "order": 18,
+   "bbox": [
+    543,
+    318,
+    650,
+    362
+   ],
+   "visible_px": 1711,
+   "hidden_px": 114
+  },
+  {
+   "name": "brow_l",
+   "order": 19,
+   "bbox": [
+    424,
+    351,
+    441,
+    356
+   ],
+   "visible_px": 54,
+   "hidden_px": 0
+  },
+  {
+   "name": "brow_r",
+   "order": 20,
+   "bbox": [
+    543,
+    320,
+    573,
+    341
+   ],
+   "visible_px": 121,
+   "hidden_px": 0
+  },
+  {
+   "name": "hair_front",
+   "order": 21,
+   "bbox": [
+    237,
+    101,
+    773,
+    472
+   ],
+   "visible_px": 96720,
+   "hidden_px": 239
+  },
+  {
+   "name": "ahoge",
+   "order": 22,
+   "bbox": [
+    330,
+    12,
+    522,
+    127
+   ],
+   "visible_px": 9015,
+   "hidden_px": 0
+  }
+ ]
+}

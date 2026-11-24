@@ -1,0 +1,293 @@
+{
+ "Version": 3,
+ "Parameters": [
+  {
+   "Id": "ParamAngleX",
+   "GroupId": "Group0",
+   "Name": "角度 X"
+  },
+  {
+   "Id": "ParamAngleY",
+   "GroupId": "Group0",
+   "Name": "角度 Y"
+  },
+  {
+   "Id": "ParamAngleZ",
+   "GroupId": "Group0",
+   "Name": "角度 Z"
+  },
+  {
+   "Id": "ParamEyeLOpen",
+   "GroupId": "Group1",
+   "Name": "左眼 开闭"
+  },
+  {
+   "Id": "ParamEyeLSmile",
+   "GroupId": "Group1",
+   "Name": "左眼 笑眼"
+  },
+  {
+   "Id": "ParamEyeROpen",
+   "GroupId": "Group1",
+   "Name": "右眼 开闭"
+  },
+  {
+   "Id": "ParamEyeRSmile",
+   "GroupId": "Group1",
+   "Name": "右眼 笑眼"
+  },
+  {
+   "Id": "ParamEyeBallX",
+   "GroupId": "Group1",
+   "Name": "眼珠 X"
+  },
+  {
+   "Id": "ParamEyeBallY",
+   "GroupId": "Group1",
+   "Name": "眼珠 Y"
+  },
+  {
+   "Id": "ParamBrowLY",
+   "GroupId": "Group2",
+   "Name": "左眉 上下"
+  },
+  {
+   "Id": "ParamBrowRY",
+   "GroupId": "Group2",
+   "Name": "右眉 上下"
+  },
+  {
+   "Id": "ParamMouthForm",
+   "GroupId": "Group3",
+   "Name": "嘴 变形"
+  },
+  {
+   "Id": "ParamMouthOpenY",
+   "GroupId": "Group3",
+   "Name": "嘴 张开"
+  },
+  {
+   "Id": "ParamBodyAngleX",
+   "GroupId": "Group4",
+   "Name": "身体 X"
+  },
+  {
+   "Id": "ParamBodyAngleY",
+   "GroupId": "Group4",
+   "Name": "身体 Y"
+  },
+  {
+   "Id": "ParamBodyAngleZ",
+   "GroupId": "Group4",
+   "Name": "身体 Z"
+  },
+  {
+   "Id": "ParamBreath",
+   "GroupId": "Group4",
+   "Name": "呼吸"
+  },
+  {
+   "Id": "ParamArmLA",
+   "GroupId": "Group5",
+   "Name": "左臂 摆动"
+  },
+  {
+   "Id": "ParamArmRA",
+   "GroupId": "Group5",
+   "Name": "右臂 摆动"
+  },
+  {
+   "Id": "ParamArmLB",
+   "GroupId": "Group5",
+   "Name": "左肘 弯曲"
+  },
+  {
+   "Id": "ParamArmRB",
+   "GroupId": "Group5",
+   "Name": "右肘 弯曲"
+  },
+  {
+   "Id": "ParamArmLRaise",
+   "GroupId": "Group5",
+   "Name": "左臂 抬起"
+  },
+  {
+   "Id": "ParamArmRRaise",
+   "GroupId": "Group5",
+   "Name": "右臂 抬起"
+  },
+  {
+   "Id": "ParamArmLWave",
+   "GroupId": "Group5",
+   "Name": "左手 挥动"
+  },
+  {
+   "Id": "ParamArmRWave",
+   "GroupId": "Group5",
+   "Name": "右手 挥动"
+  },
+  {
+   "Id": "ParamLegL",
+   "GroupId": "Group6",
+   "Name": "左腿 摆动"
+  },
+  {
+   "Id": "ParamLegR",
+   "GroupId": "Group6",
+   "Name": "右腿 摆动"
+  },
+  {
+   "Id": "ParamClothSway",
+   "GroupId": "Group7",
+   "Name": "衣摆 摇动"
+  },
+  {
+   "Id": "ParamHairFront",
+   "GroupId": "Group7",
+   "Name": "前发 摇动"
+  },
+  {
+   "Id": "ParamHairBack",
+   "GroupId": "Group7",
+   "Name": "后发 摇动"
+  },
+  {
+   "Id": "ParamHairAhoge",
+   "GroupId": "Group7",
+   "Name": "呆毛 摇动"
+  },
+  {
+   "Id": "ParamEarPandaL",
+   "GroupId": "Group7",
+   "Name": "熊猫耳 左"
+  },
+  {
+   "Id": "ParamEarPandaR",
+   "GroupId": "Group7",
+   "Name": "熊猫耳 右"
+  },
+  {
+   "Id": "ParamExpStartled",
+   "GroupId": "Group8",
+   "Name": "表情 受惊"
+  },
+  {
+   "Id": "ParamExpSulky",
+   "GroupId": "Group8",
+   "Name": "表情 生闷气"
+  },
+  {
+   "Id": "ParamExpDizzy",
+   "GroupId": "Group8",
+   "Name": "表情 晕乎乎"
+  },
+  {
+   "Id": "ParamExpSleepy",
+   "GroupId": "Group8",
+   "Name": "表情 困倦"
+  },
+  {
+   "Id": "ParamExpWince",
+   "GroupId": "Group8",
+   "Name": "表情 吃痛"
+  },
+  {
+   "Id": "ParamPinchLX",
+   "GroupId": "Group9",
+   "Name": "捏脸 左 X"
+  },
+  {
+   "Id": "ParamPinchLY",
+   "GroupId": "Group9",
+   "Name": "捏脸 左 Y"
+  },
+  {
+   "Id": "ParamPinchRX",
+   "GroupId": "Group9",
+   "Name": "捏脸 右 X"
+  },
+  {
+   "Id": "ParamPinchRY",
+   "GroupId": "Group9",
+   "Name": "捏脸 右 Y"
+  }
+ ],
+ "ParameterGroups": [
+  {
+   "Id": "Group0",
+   "GroupId": "",
+   "Name": "头"
+  },
+  {
+   "Id": "Group1",
+   "GroupId": "",
+   "Name": "眼"
+  },
+  {
+   "Id": "Group2",
+   "GroupId": "",
+   "Name": "眉"
+  },
+  {
+   "Id": "Group3",
+   "GroupId": "",
+   "Name": "嘴"
+  },
+  {
+   "Id": "Group4",
+   "GroupId": "",
+   "Name": "身体"
+  },
+  {
+   "Id": "Group5",
+   "GroupId": "",
+   "Name": "手臂"
+  },
+  {
+   "Id": "Group6",
+   "GroupId": "",
+   "Name": "腿"
+  },
+  {
+   "Id": "Group7",
+   "GroupId": "",
+   "Name": "摇动"
+  },
+  {
+   "Id": "Group8",
+   "GroupId": "",
+   "Name": "表情"
+  },
+  {
+   "Id": "Group9",
+   "GroupId": "",
+   "Name": "捏脸"
+  }
+ ],
+ "Parts": [
+  {
+   "Id": "Root",
+   "Name": "Root"
+  },
+  {
+   "Id": "Body",
+   "Name": "Body"
+  },
+  {
+   "Id": "Arms",
+   "Name": "Arms"
+  },
+  {
+   "Id": "Head",
+   "Name": "Head"
+  },
+  {
+   "Id": "Face",
+   "Name": "Face"
+  },
+  {
+   "Id": "Hair",
+   "Name": "Hair"
+  }
+ ]
+}

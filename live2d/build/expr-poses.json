@@ -1,0 +1,5 @@
+{"rest": {}, "startled": {"ParamExpStartled": 1}, "sulky": {"ParamExpSulky": 1, "ParamAngleX": -12},
+ "dizzy": {"ParamExpDizzy": 1, "ParamAngleZ": 10}, "sleepy": {"ParamExpSleepy": 1, "ParamAngleY": -10},
+ "wince": {"ParamExpWince": 1}, "pinchL": {"ParamExpWince": 1, "ParamPinchLX": -1, "ParamPinchLY": 0.4},
+ "pinchR": {"ParamPinchRX": 1, "ParamPinchRY": -0.5}, "startled_turn": {"ParamExpStartled": 1, "ParamAngleX": 25, "ParamAngleY": 12},
+ "half_startled": {"ParamExpStartled": 0.5}}
