@@ -19,6 +19,7 @@ internal sealed class AgentSetup : Form {
     private const string ProductExe = "小金同学.exe";
     private const string Uninstaller = "Uninstall 小金同学.exe";
     private const string ShortcutName = "小金同学.lnk";
+    private const string DesktopShortcutName = "小金工作台.lnk";
     // Names used before 1.9.0; upgrades must still find and replace them.
     private const string LegacyExe = "Jinkra Agent Legacy.exe";
     private const string LegacyUninstaller = "Uninstall Jinkra Agent Legacy.exe";
@@ -355,7 +356,7 @@ internal sealed class AgentSetup : Form {
 
     private static void Install(string directory, IProgress<int> progress, bool desktop, bool quick, bool update) {
         var shortcuts = new Dictionary<string, byte[]>();
-        string desktopLink = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), ShortcutName);
+        string desktopLink = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), DesktopShortcutName);
         string quickLink = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             @"Microsoft\Internet Explorer\Quick Launch", ShortcutName);
         string target = Path.Combine(directory, ProductExe);

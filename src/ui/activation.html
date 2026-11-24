@@ -8,29 +8,45 @@
 <link rel="stylesheet" href="activation.css">
 </head>
 <body>
-<main class="gateway">
-  <section class="gateway-card">
-    <div class="gateway-brand">
-      <img class="logo" src="brand/logo.png" alt="">
-      <strong>小金同学</strong>
-      <p id="version">版本号：</p>
-    </div>
-    <div class="gateway-content">
-      <h1>激活小金同学</h1>
-      <p>输入激活码后即可使用当前版本。</p>
-      <form id="form">
-        <input id="code" type="password" maxlength="128" required placeholder="输入激活码" aria-label="激活码" autocomplete="off">
-        <button id="submit" type="submit">激活并进入<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        <p id="status" role="status" hidden></p>
+<div class="shell">
+  <aside class="stage" aria-hidden="true">
+    <div class="glow one"></div><div class="glow two"></div>
+    <div class="brand"><img src="brand/logo.png" alt=""><div><strong>小金同学</strong><span id="version">v</span></div></div>
+    <img class="hero" src="brand/hero.png" alt="">
+    <div class="tagline"><b>住在桌面上的 AI 编程伙伴</b><span>Live2D 桌宠 · Codex / Claude 双模式</span></div>
+  </aside>
+
+  <main class="pane">
+    <div class="content">
+      <span class="eyebrow"><i></i>版本激活</span>
+      <h1>你好，先来认识一下吧</h1>
+      <p class="lead">输入激活码，解锁当前版本的小金同学。激活信息仅加密保存在这台电脑上。</p>
+
+      <form id="form" novalidate>
+        <label class="field" for="code">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2 20 3M16 7l3 3M14 9l2 2"/></svg>
+          <input id="code" type="password" maxlength="128" required placeholder="请输入激活码" aria-label="激活码" autocomplete="off" spellcheck="false">
+          <button id="toggle" type="button" class="peek" aria-label="显示激活码"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </label>
+        <button id="submit" type="submit" class="primary"><span>激活并进入</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <p id="status" role="status" aria-live="polite"></p>
       </form>
-      <div class="guide">
-        <p>微信搜索<strong>「都拓文化」</strong>或扫描二维码关注公众号，获取激活码。</p>
+
+      <section class="obtain">
+        <div class="obtain-text">
+          <h2>如何获取激活码</h2>
+          <ol>
+            <li><b>1</b><span>微信搜索公众号<strong>「都拓文化」</strong></span></li>
+            <li><b>2</b><span>关注后在公众号内获取激活码</span></li>
+            <li><b>3</b><span>回到这里输入，即可开始使用</span></li>
+          </ol>
+        </div>
         <img src="brand/wechat-promotion.png" alt="都拓文化微信公众号二维码" width="1710" height="624">
-      </div>
+      </section>
     </div>
-  </section>
-  <footer>© 2026 Jinkra . All Rights Reserved. | Made by Jinkra</footer>
-</main>
+    <footer>© 2026 Jinkra . All Rights Reserved. | Made by Jinkra</footer>
+  </main>
+</div>
 <script src="activation.js"></script>
 </body>
 </html>

@@ -17,6 +17,11 @@
 !macroend
 
 !macro customInstall
+  ; Only the desktop shortcut is called 小金工作台; everything else keeps the 小金同学 name.
+  ${If} ${FileExists} "$DESKTOP\小金同学.lnk"
+    Delete "$DESKTOP\小金工作台.lnk"
+    Rename "$DESKTOP\小金同学.lnk" "$DESKTOP\小金工作台.lnk"
+  ${EndIf}
   ${GetParameters} $R8
   ClearErrors
   ${GetOptions} $R8 "/JINKRA_QUICK_LAUNCH" $R9
@@ -35,6 +40,8 @@
 
 !macro customUnInstall
   ${IfNot} ${isKeepShortcuts}
+    WinShell::UninstShortcut "$DESKTOP\小金工作台.lnk"
+    Delete "$DESKTOP\小金工作台.lnk"
     ReadRegStr $R8 HKCU "Software\Jinkra\Agent" "QuickLaunchTarget"
     ${If} $R8 == "$INSTDIR\${APP_EXECUTABLE_FILENAME}"
       WinShell::UninstShortcut "$QUICKLAUNCH\小金同学.lnk"
